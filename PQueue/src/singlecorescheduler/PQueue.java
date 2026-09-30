@@ -5,9 +5,9 @@ import java.util.*;
  * This class describes a priority min-queue that uses an array-list-based min binary heap 
  * that implements the PQueueAPI interface. The array list holds objects that implement 
  * the parameterized Comparable interface.
- * @author Duncan, YOUR NAME
+ * @author Duncan, Heidi Faustermann
  * <pre>
- * Date: LAST DATE MODIFIED
+ * Date: 9/29/2026
  * course: csc 3102
  * Programming Project: 1
  * Instructor: Dr. Duncan
@@ -57,7 +57,7 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     */
    public PQueue()
    {
-      //implement this method
+	   //
 	   tree = new ArrayList<E>();
 	   cmp = (x,y) -> x.compareTo(y);
    }
@@ -67,9 +67,8 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     */
    public PQueue(PQueue pQ)
    {
-      //implement this method
-	  tree.new ArrayList<E>(pQ.tree);
-	  cmp = pQ.cmp;
+	   tree = new ArrayList<E>(pQ.tree);
+	   cmp = pQ.cmp;
    }
    
    /**
@@ -102,7 +101,7 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
 	   if (tree.isEmpty()) 
 	   {
 		   throw new PQueueException();
-	   }
+	   }  
 	   
 	   E result = tree.get(0);
 	   
