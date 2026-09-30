@@ -57,8 +57,9 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     */
    public PQueue()
    {
-	   //
+	   //Creates empty ArrayList to store the heap
 	   tree = new ArrayList<E>();
+	   //Uses compareTo to determine the order of the elements
 	   cmp = (x,y) -> x.compareTo(y);
    }
    
@@ -67,7 +68,9 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     */
    public PQueue(PQueue pQ)
    {
+	   //Creates a new ArrayList containing the elements from the priority queue
 	   tree = new ArrayList<E>(pQ.tree);
+	   //Copies the comparator from original priority queue
 	   cmp = pQ.cmp;
    }
    
@@ -77,22 +80,23 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     */
    public PQueue(Comparator<? super E> fn)
    {
+	   //Creates empty ArrayList to store heap
 	   tree = new ArrayList<E>();
+	   //Stores comparator passed into the constructor
 	   cmp = fn;
-      //implement this method
 	   
    }
 
    public boolean isEmpty()
    {
-      //implement this method
       return tree.isEmpty();
    }
 
    public void add(E obj)
    {
-      //implement this method
+	   //Add new element to end of heap
 	   tree.add(obj);
+	   //Move new element up until heap is restored
 	   heapifyUp(tree.size()-1);
    }
 
@@ -100,16 +104,19 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
    {
 	   if (tree.isEmpty()) 
 	   {
+		   //Throws exception because there is nothing to remove
 		   throw new PQueueException();
 	   }  
-	   
+	   //Saves root element (highest priority)
 	   E result = tree.get(0);
-	   
+	   //Remove last element from heap
 	   E last = tree.remove(tree.size() - 1);
 	   
+	   //If elements are still left in the heap, move last element to the root
 	   if(!tree.isEmpty()) 
 	   {
 		   tree.set(0, last);
+		   //Move new root down until heap is restored
 		   heapifyDown(0);
 	   }
 	   
@@ -121,17 +128,18 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
  
    public E peek() throws PQueueException
    {
-      //implement this method
 	   if (tree.isEmpty()) 
 	   {
+		   //Throws exception because there is no element
 		   throw new PQueueException();
 	   }
+	   //Returns the root without removing it
 	   return tree.get(0);
    }
 
    public int size()
    {
-      //implement this method
+	  //Returns number of elements stored in the ArrayList
       return tree.size();
    }
    
@@ -142,10 +150,12 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     */
    private void swap(int place, int parent)
    {
+	   //Temporarily store the child element
 	   E temp = tree.get(place);
-	   tree.set(place, tree.get(parent));
+	   //Move parent into child's position
+	   tree.set(place, tree.get(parent));\
+	   //Move child to parent's position
 	   tree.set(parent, temp);
-      //implement this method
    }
 
     /**
@@ -157,11 +167,13 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     {
     	while (index > 0) 
     	{
+    		//Calculates index of parent
     		int parent = (index - 1) / 2;
-    		//
     		
+    		//Checks if element has higher priority than parent
     		if (cmp.compare(tree.get(index), tree.get(parent)) < 0) 
     		{
+    			//If current element has higher priority, swap with parent
     			swap(index, parent);
     			index = parent;
     		} else {
@@ -188,24 +200,24 @@ public class PQueue<E extends Comparable<E>> implements PQueueAPI<E>
     		}
     		
     		int smallerChild = left;
-    		//placeholder that assumes the left is smaller
+    		//Placeholder that assumes the left is smaller
     		
     		if (right < tree.size() && cmp.compare(tree.get(right), tree.get(left)) <0) 
     		{
     			smallerChild = right;
-    			//switches to the right if it is actually smaller
+    			//Switches to the right if it is actually smaller
     		}
     		
     		//checks if smallerChild is smaller than parent
     		if (cmp.compare(tree.get(smallerChild), tree.get(index)) < 0) 
     		{
-    			//if smallerChild is smaller, they swap
+    			//If smallerChild is smaller, they swap
     			swap(index, smallerChild);
     			index = smallerChild;
     		} else {
     			break;
     		}
     	}
-        //implement this method
+      
     }
 }
